@@ -23,36 +23,36 @@ export default function Home() {
 
   const [products, setProducts] = React.useState([]);
 
-  const init = React.useCallback(() => {
-    window.AicactusSDK.on("RECO_READY", async () => {
-      const res = await window.AicactusSDK.getFeatureById(
-        FEATURE_IDS.topProducts,
-        "top"
+  const init = React.useCallback(async () => {
+    const res = await window.AicactusSDK.getFeatureById(
+      FEATURE_IDS.topProducts,
+      "top"
+    );
+    if (res?.data?.results?.data?.length) {
+      const data = res.data.results.data;
+      setProducts(
+        data.map((item) => ({
+          ...item,
+          slug: slugify(item.name, {
+            replacement: "-",
+            remove: undefined,
+            lower: true,
+            strict: false,
+            locale: "vi",
+          }),
+          thumbImage: [item.cdn_link, item.cdn_link],
+          images: [item.cdn_link],
+        }))
       );
-      if (res?.data?.results?.data?.length) {
-        const data = res.data.results.data;
-        setProducts(
-          data.map((item) => ({
-            ...item,
-            slug: slugify(item.name, {
-              replacement: "-",
-              remove: undefined,
-              lower: true,
-              strict: false,
-              locale: "vi",
-            }),
-            thumbImage: [item.cdn_link, item.cdn_link],
-            images: [item.cdn_link],
-          }))
-        );
-      }
-    });
+    }
   }, []);
 
   React.useEffect(() => {
-    document.getElementById("aicactus-sdk").addEventListener("load", () => {
+    let timer = setTimeout(() => {
       init();
-    });
+    }, 500);
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (
