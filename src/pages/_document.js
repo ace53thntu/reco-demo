@@ -30,7 +30,6 @@ class MyDocument extends Document {
           <link href="/assets/css/icomoon-icon.css" rel="stylesheet" />
 
           <script
-            id="aicactus-sdk"
             type="text/javascript"
             dangerouslySetInnerHTML={{
               __html: `window.AicactusSDK||(window.AicactusSDK={}),AicactusSDK.load=function(a){var b=document.createElement("script");b.async=!0,b.type="text/javascript",b.src="${
