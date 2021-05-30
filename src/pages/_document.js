@@ -30,8 +30,13 @@ class MyDocument extends Document {
           <link href="/assets/css/icomoon-icon.css" rel="stylesheet" />
 
           <script
+            type="text/javascript"
             dangerouslySetInnerHTML={{
-              __html: `window.AicactusSDK||(window.AicactusSDK={}),AicactusSDK.load=function(a){var b=document.createElement("script");b.async=!0,b.type="text/javascript",b.src="http://localhost:9081/aicactus-sdk.development.min.js",b.addEventListener?b.addEventListener("load",function(b){"function"==typeof a&&a(b)},!1):b.onreadystatechange=function(){("complete"==this.readyState||"loaded"==this.readyState)&&a(window.event)};let c=document.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c)},AicactusSDK.load(function(){AicactusSDK.initialize({containerId:"38e953fc-c928-4e54-8644-9bc47de6b98c@web", type: "reco"}),AicactusSDK.callMethodsFromContainer()});`,
+              __html: `window.AicactusSDK||(window.AicactusSDK={}),AicactusSDK.load=function(a){var b=document.createElement("script");b.async=!0,b.type="text/javascript",b.src="${
+                process.env.NODE_ENV === "development"
+                  ? "http://localhost:9081/aicactus-sdk.development.min.js"
+                  : "https://cdn.aicactus.io/aicactus-sdk.min.js"
+              }",b.addEventListener?b.addEventListener("load",function(b){"function"==typeof a&&a(b)},!1):b.onreadystatechange=function(){("complete"==this.readyState||"loaded"==this.readyState)&&a(window.event)};let c=document.getElementsByTagName("script")[0];c.parentNode.insertBefore(b,c)},AicactusSDK.load(function(){AicactusSDK.initialize({containerId:"38e953fc-c928-4e54-8644-9bc47de6b98c@web", type: "reco"}),AicactusSDK.callMethodsFromContainer()});`,
             }}
           ></script>
         </Head>
