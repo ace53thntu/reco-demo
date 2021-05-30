@@ -23,7 +23,7 @@ export default function Home() {
 
   const [products, setProducts] = React.useState([]);
 
-  async function init() {
+  const init = React.useCallback(() => {
     window.AicactusSDK.on("RECO_READY", async () => {
       const res = await window.AicactusSDK.getFeatureById(
         FEATURE_IDS.topProducts,
@@ -47,11 +47,11 @@ export default function Home() {
         );
       }
     });
-  }
+  }, []);
 
   React.useEffect(() => {
     init();
-  }, []);
+  }, [window?.AicactusSDK?.on?.()]);
 
   return (
     <LayoutOne title="Home">
