@@ -1,10 +1,30 @@
+import { Col, Row } from "antd";
 import React, { useState } from "react";
 import Slider from "react-slick";
-import { Row, Col } from "antd";
 
+import { FEATURE_IDS } from "../../common/defines";
 import ProductDetailContentOne from "../productDetail/productDetailContent/ProductDetailContentOne";
 
 function ShopQuickView({ data, setModalVisible }) {
+  const [extensionHTML, setExtensionHTML] = React.useState(null);
+
+  async function init() {
+    try {
+      const res = await window.AicactusSDK.getFeatureById(
+        FEATURE_IDS.extensions,
+        "extension",
+        {
+          id: data.id,
+        }
+      );
+      setExtensionHTML(res);
+    } catch (error) {}
+  }
+
+  React.useEffect(() => {
+    init();
+  }, []);
+
   const slider1Settings = {
     arrows: false,
   };
@@ -44,45 +64,13 @@ function ShopQuickView({ data, setModalVisible }) {
   return (
     <div className="shop-qv">
       <Row align="middle" gutter={50}>
-        <Col className="gutter-row" span={24} sm={24} md={10}>
-          <div className="shop-qv__slide">
-            <div className="shop-qv__slide-big">
-              <Slider
-                asNavFor={nav2}
-                ref={(c) => setNav1(c)}
-                {...slider1Settings}
-              >
-                {data &&
-                  data.images.map((img, index) => (
-                    <div key={index} className="slider-item">
-                      <img src={img} alt="Product image" />
-                    </div>
-                  ))}
-              </Slider>
-            </div>
-            <div className="shop-qv__slide-small">
-              <Slider
-                asNavFor={nav1}
-                ref={(c) => setNav2(c)}
-                {...slider2Settings}
-              >
-                {data &&
-                  data.images.map((img, index) => (
-                    <div key={index} className="slider-item">
-                      <img src={img} alt="Product image" />
-                    </div>
-                  ))}
-              </Slider>
-            </div>
-          </div>
-        </Col>
-        <Col className="gutter-row" span={24} sm={24} md={14}>
-          <ProductDetailContentOne
-            data={data}
-            hideGuaranteed
-            onAddedToCart={onAddedToCart}
-          />
-        </Col>
+        <iframe
+          srcDoc={extensionHTML}
+          style={{
+            width: "100%",
+            minHeight: "60vh",
+          }}
+        />
       </Row>
     </div>
   );

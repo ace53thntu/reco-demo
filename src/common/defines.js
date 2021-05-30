@@ -54,3 +54,10 @@ export const SHOP = {
     },
   ],
 };
+
+export const FEATURE_IDS = {
+  topProducts: "4ba39ba1-5624-4f39-a6a6-c123249d7f0f",
+  keywords: "806840f9-c271-498c-b606-60592bb047be",
+  extensions: "75346e78-d25e-4e09-b474-245ef752ed3a",
+  nextProducts: "7f8e937a-3f5a-45fa-9ba5-5840f3cd1b13",
+};

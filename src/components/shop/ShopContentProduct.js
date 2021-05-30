@@ -1,13 +1,13 @@
-import { Row, Col, Empty, Pagination } from "antd";
-import { useSelector } from "react-redux";
+import { Col, Empty, Pagination, Row } from "antd";
 import classNames from "classnames";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
-import Product from "../product/Product";
 import {
   getProductsByFilter,
   getProductsBySearch,
 } from "../../common/shopUtils";
-import { useState, useEffect } from "react";
+import Product from "../product/Product";
 
 function ShopContentProduct({
   productResponsive,
@@ -76,17 +76,6 @@ function ShopContentProduct({
                     </Col>
                   ))}
               </Row>
-              {currentData.length >= productPerPage && (
-                <Pagination
-                  classNames="shop-content__product-pagination"
-                  defaultCurrent={1}
-                  current={page}
-                  total={currentData.length}
-                  pageSize={productPerPage}
-                  itemRender={itemRender}
-                  onChange={(page, pageSize) => onChangeOffset(page, pageSize)}
-                />
-              )}
             </>
           ) : (
             <Empty />

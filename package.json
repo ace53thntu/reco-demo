@@ -14,6 +14,7 @@
     "antd": "^4.5.1",
     "classnames": "^2.2.6",
     "less": "^3.12.2",
+    "lodash": "^4.17.21",
     "next": "9.5.1",
     "react": "16.13.1",
     "react-countdown": "^2.2.1",
@@ -27,6 +28,7 @@
     "redux-thunk": "^2.3.0",
     "sass": "^1.26.10",
     "slick-carousel": "^1.8.1",
+    "slugify": "^1.5.3",
     "uuid": "^8.3.0"
   },
   "devDependencies": {}

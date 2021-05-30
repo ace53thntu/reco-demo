@@ -1,4 +1,5 @@
 import React from "react";
+
 import ShopContentHeader from "./ShopContentHeader";
 import ShopContentProduct from "./ShopContentProduct";
 
@@ -11,7 +12,7 @@ function ShopContent({
 }) {
   return (
     <div className="shop-content">
-      <ShopContentHeader productPerPage={productPerPage} data={data} />
+      {/* <ShopContentHeader productPerPage={productPerPage} data={data} /> */}
       <ShopContentProduct
         productStyle={productStyle}
         fiveColumn={fiveColumn}

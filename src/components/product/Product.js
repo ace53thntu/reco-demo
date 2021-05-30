@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import { Rate, Button, Tooltip, Skeleton, message, Modal, Spin } from "antd";
-import { useSelector, useDispatch } from "react-redux";
+import { Button, Modal, Rate, Skeleton, Spin, Tooltip, message } from "antd";
 import classNames from "classnames";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { formatCurrency } from "../../common/utils";
 import {
-  checkProductInWishlist,
   checkAvaiableQuantityToAdd,
+  checkProductInWishlist,
 } from "../../common/shopUtils";
+import { formatCurrency } from "../../common/utils";
 import { addToCart } from "../../redux/actions/cartActions";
 import {
   addToWishlist,
@@ -104,64 +104,18 @@ function Product({ data, productStyle }) {
             </div>
           )}
           {renderProductType()}
-          {productStyle === "two" ? (
-            <div className="product-button-group">
-              <Tooltip title="Quick view">
-                <Button onClick={showModal} type="text">
-                  <i className="icon_search" />
-                </Button>
-              </Tooltip>
-              <Tooltip
-                title={
-                  productInWishlist ? "Remove from wishlist" : "Add to wishlist"
-                }
-              >
-                <Button
-                  className={`product-atw ${classNames({
-                    active: productInWishlist,
-                  })}`}
-                  type="text"
-                  onClick={() => onAddToWishlist(data)}
-                >
-                  <i className="icon_heart_alt" />
-                </Button>
-              </Tooltip>
-              <Tooltip title="Add to cart">
-                <Button
-                  disabled={avaiableQuantity === 0}
-                  type="text"
-                  onClick={() => onAddToCart(data)}
-                >
-                  <i className="icon_bag_alt" />
-                </Button>
-              </Tooltip>
-            </div>
-          ) : null}
-          {!productStyle || productStyle === "one" ? (
-            <>
-              <Tooltip
-                placement="left"
-                title={
-                  productInWishlist ? "Remove from wishlist" : "Add to wishlist"
-                }
-              >
-                <Button
-                  className={`product-atw ${classNames({
-                    active: productInWishlist,
-                  })}`}
-                  type="text"
-                  shape="circle"
-                  onClick={() => onAddToWishlist(data)}
-                >
-                  <i className="icon_heart_alt" />
-                </Button>
-              </Tooltip>
-
-              <Button onClick={showModal} className="product-qv">
-                Quick view
-              </Button>
-            </>
-          ) : null}
+          <Tooltip placement="left" title={"Product info"}>
+            <Button
+              className={`product-atw ${classNames({
+                active: productInWishlist,
+              })}`}
+              type="text"
+              shape="circle"
+              onClick={showModal}
+            >
+              <i className="icon_info_alt" />
+            </Button>
+          </Tooltip>
         </div>
         <div className="product-content">
           <Link
@@ -170,77 +124,6 @@ function Product({ data, productStyle }) {
           >
             <a className="product-name">{data.name}</a>
           </Link>
-          <div className="product-rate">
-            <Rate defaultValue={data.rate} disabled />
-            <span className="product-rate-quantity">(06)</span>
-          </div>
-          <div className="product-content__footer">
-            <div className="product-content__footer-price">
-              <h5 className="product-price">
-                {data.discount
-                  ? formatCurrency(
-                      data.price - data.discount,
-                      locales,
-                      currency
-                    )
-                  : formatCurrency(data.price, locales, currency)}
-              </h5>
-              {data.discount && (
-                <span>{formatCurrency(data.price, locales, currency)}</span>
-              )}
-            </div>
-            {!productStyle || productStyle === "one" ? (
-              <Tooltip title="Add to cart">
-                <Button
-                  disabled={avaiableQuantity === 0}
-                  className="product-atc"
-                  type="text"
-                  shape="circle"
-                  onClick={() => onAddToCart(data)}
-                >
-                  <i className="icon_bag_alt" />
-                </Button>
-              </Tooltip>
-            ) : null}
-          </div>
-          {productStyle === "three" ? (
-            <div className="product-button-group">
-              <div className="product-button-group__wrapper">
-                <Tooltip placement="top" title="Quick view">
-                  <Button onClick={showModal} shape="circle">
-                    <i className="icon_search" />
-                  </Button>
-                </Tooltip>
-                <Tooltip
-                  placement="top"
-                  title={
-                    productInWishlist
-                      ? "Remove from wishlist"
-                      : "Add to wishlist"
-                  }
-                >
-                  <Button
-                    shape="circle"
-                    className={`product-atw ${classNames({
-                      active: productInWishlist,
-                    })}`}
-                    onClick={() => onAddToWishlist(data)}
-                  >
-                    <i className="icon_heart_alt" />
-                  </Button>
-                </Tooltip>
-                <Tooltip placement="top" title="Add to cart">
-                  <Button
-                    disabled={avaiableQuantity === 0}
-                    shape="circle"
-                    onClick={() => onAddToCart(data)}
-                  >
-                    <i className="icon_bag_alt" />
-                  </Button>
-                </Tooltip>
-              </div>
-            </div>
-          ) : null}
         </div>
       </div>
       <Modal
