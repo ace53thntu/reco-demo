@@ -3,22 +3,25 @@ import React, { useState } from "react";
 import Slider from "react-slick";
 
 import { FEATURE_IDS } from "../../common/defines";
+import { delay } from "../../common/utils";
 import ProductDetailContentOne from "../productDetail/productDetailContent/ProductDetailContentOne";
 
 function ShopQuickView({ data, setModalVisible }) {
   const [extensionHTML, setExtensionHTML] = React.useState(null);
 
   async function init() {
-    try {
-      const res = await window.AicactusSDK.getFeatureById(
-        FEATURE_IDS.extensions,
-        "extension",
-        {
-          id: data.id,
-        }
-      );
-      setExtensionHTML(res);
-    } catch (error) {}
+    window.AicactusSDK.on("RECO_READY", async () => {
+      try {
+        const res = await window.AicactusSDK.getFeatureById(
+          FEATURE_IDS.extensions,
+          "extension",
+          {
+            id: data.id,
+          }
+        );
+        setExtensionHTML(res);
+      } catch (error) {}
+    });
   }
 
   React.useEffect(() => {
