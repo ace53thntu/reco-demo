@@ -50,8 +50,10 @@ export default function Home() {
   }, []);
 
   React.useEffect(() => {
-    init();
-  }, [window?.AicactusSDK?.on?.()]);
+    document.getElementById("aicactus-sdk").addEventListener("load", () => {
+      init();
+    });
+  }, []);
 
   return (
     <LayoutOne title="Home">
