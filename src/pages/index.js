@@ -22,30 +22,31 @@ export default function Home() {
   );
 
   const [products, setProducts] = React.useState([]);
-  console.log("🚀 ~ file: index.js ~ line 30 ~ Home ~ products", products);
 
   async function init() {
-    const res = await window.AicactusSDK.getFeatureById(
-      FEATURE_IDS.topProducts,
-      "top"
-    );
-    if (res?.data?.results?.data?.length) {
-      const data = res.data.results.data;
-      setProducts(
-        data.map((item) => ({
-          ...item,
-          slug: slugify(item.name, {
-            replacement: "-",
-            remove: undefined,
-            lower: true,
-            strict: false,
-            locale: "vi",
-          }),
-          thumbImage: [item.cdn_link, item.cdn_link],
-          images: [item.cdn_link],
-        }))
+    window.AicactusSDK.on("RECO_READY", async () => {
+      const res = await window.AicactusSDK.getFeatureById(
+        FEATURE_IDS.topProducts,
+        "top"
       );
-    }
+      if (res?.data?.results?.data?.length) {
+        const data = res.data.results.data;
+        setProducts(
+          data.map((item) => ({
+            ...item,
+            slug: slugify(item.name, {
+              replacement: "-",
+              remove: undefined,
+              lower: true,
+              strict: false,
+              locale: "vi",
+            }),
+            thumbImage: [item.cdn_link, item.cdn_link],
+            images: [item.cdn_link],
+          }))
+        );
+      }
+    });
   }
 
   React.useEffect(() => {
@@ -53,7 +54,7 @@ export default function Home() {
   }, []);
 
   return (
-    <LayoutOne title="Homepage 1">
+    <LayoutOne title="Home">
       <Banners />
       <ShopLayout
         fiveColumn
