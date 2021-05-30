@@ -10,18 +10,16 @@ function ShopQuickView({ data, setModalVisible }) {
   const [extensionHTML, setExtensionHTML] = React.useState(null);
 
   async function init() {
-    window.AicactusSDK.on("RECO_READY", async () => {
-      try {
-        const res = await window.AicactusSDK.getFeatureById(
-          FEATURE_IDS.extensions,
-          "extension",
-          {
-            id: data.id,
-          }
-        );
-        setExtensionHTML(res);
-      } catch (error) {}
-    });
+    try {
+      const res = await window.AicactusSDK.getFeatureById(
+        FEATURE_IDS.extensions,
+        "extension",
+        {
+          id: data.id,
+        }
+      );
+      setExtensionHTML(res);
+    } catch (error) {}
   }
 
   React.useEffect(() => {
