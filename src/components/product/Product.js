@@ -40,7 +40,6 @@ function Product({ data, productStyle }) {
       return null;
     }
   };
-  console.log(avaiableQuantity);
   const onAddToCart = (data) => {
     if (avaiableQuantity === 0) {
       return;

@@ -1,18 +1,19 @@
 import { AutoComplete, Button, Select } from "antd";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { SHOP } from "../../../common/defines";
+import { FEATURE_IDS } from "../../../common/defines";
 import { getProductsByCategory } from "../../../common/shopUtils";
+import { delay } from "../../../common/utils";
 import { useDebounce as useDebounceHook } from "../../../hooks/useDebounce";
 import {
   setGlobalCategory,
+  setGlobalProducts,
   setGlobalSearch,
 } from "../../../redux/actions/globalActions";
 import { setSubCategory } from "../../../redux/actions/shopActions";
-
-const FEATURE_ID = "806840f9-c271-498c-b606-60592bb047be";
 
 function SearchBarMobile({ fillData, placeholder }) {
   const { Option } = Select;
@@ -29,57 +30,47 @@ function SearchBarMobile({ fillData, placeholder }) {
     dispatch(setGlobalSearch(debouncedSearchTerm));
   }, [debouncedSearchTerm]);
 
-  // useEffect(() => {
-  //   if (window.AicactusSDK?.getSearchData?.()) {
-  //     async function init() {
-  //       const res = await window.AicactusSDK.getSearchData(FEATURE_ID);
-  //       if (res?.results && res?.results?.keyword_trends) {
-  //         const { keyword_trends = [] } = res.results;
-  //         const opts = keyword_trends.map((name) => ({
-  //           value: name,
-  //         }));
-  //         setSearchOptions(opts);
-  //       }
-  //     }
-  //     init();
-  //   }
-  // }, []);
+  const init = useCallback(async () => {
+    await delay(1000);
+    const res = await window.AicactusSDK.getSearchData(FEATURE_IDS.keywords);
+    if (res?.results && res?.results?.keyword_trends) {
+      const { keyword_trends = [] } = res.results;
+      const opts = keyword_trends.map((name) => ({
+        value: name,
+      }));
+      setSearchOptions(opts);
+      dispatch(setGlobalProducts([]));
+    }
+  }, []);
 
-  // useEffect(() => {
-  //   if (window.AicactusSDK?.getSearchData?.()) {
-  //     if (debouncedSearchTerm) {
-  //       async function searchProducts() {
-  //         const res = await window.AicactusSDK.getFeatureById(
-  //           FEATURE_ID,
-  //           "keywords",
-  //           {
-  //             keywords: [debouncedSearchTerm],
-  //           }
-  //         );
-  //         if (res?.data?.results?.data?.length) {
-  //           const data = res.data.results.data;
-  //           const opts = data.map(({ name }) => ({
-  //             value: name,
-  //           }));
-  //           setSearchOptions(opts);
-  //         }
-  //       }
-  //       searchProducts();
-  //     } else {
-  //       async function init() {
-  //         const res = await window.AicactusSDK.getSearchData(FEATURE_ID);
-  //         if (res?.results && res?.results?.keyword_trends) {
-  //           const { keyword_trends = [] } = res.results;
-  //           const opts = keyword_trends.map((name) => ({
-  //             value: name,
-  //           }));
-  //           setSearchOptions(opts);
-  //         }
-  //       }
-  //       init();
-  //     }
-  //   }
-  // }, [debouncedSearchTerm]);
+  useEffect(() => {
+    init();
+  }, [init]);
+
+  useEffect(() => {
+    if (debouncedSearchTerm) {
+      async function searchProducts() {
+        const res = await window.AicactusSDK.getFeatureById(
+          FEATURE_IDS.keywords,
+          "keywords",
+          {
+            keywords: [debouncedSearchTerm],
+          }
+        );
+        if (res?.data?.results?.data?.length) {
+          const data = res.data.results.data;
+          const opts = data.map(({ name }) => ({
+            value: name,
+          }));
+          setSearchOptions(opts);
+          dispatch(setGlobalProducts(data));
+        }
+      }
+      searchProducts();
+    } else {
+      init();
+    }
+  }, [debouncedSearchTerm, init]);
 
   const renderAutoFillItem = () => {
     let product = getProductsByCategory(fillData, globalState.category);

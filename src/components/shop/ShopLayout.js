@@ -1,10 +1,10 @@
+import { Col, Row } from "antd";
 import React from "react";
-import { Row, Col } from "antd";
 
-import ShopSidebar from "./ShopSidebar";
+import Container from "../other/Container";
 import ShopContent from "./ShopContent";
 import ShopQuickView from "./ShopQuickView";
-import Container from "../other/Container";
+import ShopSidebar from "./ShopSidebar";
 
 function ShopLayout({
   shopSidebarResponsive,
@@ -15,6 +15,7 @@ function ShopLayout({
   productPerPage,
   productStyle,
   containerType,
+  nextProducts = [],
 }) {
   return (
     <div className="shop-layout">
@@ -30,6 +31,7 @@ function ShopLayout({
               fiveColumn={fiveColumn}
               productResponsive={productResponsive}
               data={data}
+              nextProducts={nextProducts}
             />
           </Col>
         </Row>

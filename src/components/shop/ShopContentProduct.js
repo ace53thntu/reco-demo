@@ -15,6 +15,7 @@ function ShopContentProduct({
   data,
   productPerPage,
   productStyle,
+  nextProducts,
 }) {
   const shopState = useSelector((state) => state.shopReducer);
   const globalState = useSelector((state) => state.globalReducer);
@@ -63,6 +64,11 @@ function ShopContentProduct({
         <>
           {currentData.length > 0 ? (
             <>
+              <div className="shop-content__header">
+                <div className="shop-content__header-showing">
+                  <h2>Trending: </h2>
+                </div>
+              </div>
               <Row gutter={[{ xs: 5, sm: 5, xl: 15, xxl: 30 }, 30]}>
                 {currentData
                   .slice(offset, offset + productPerPage)
@@ -80,6 +86,27 @@ function ShopContentProduct({
           ) : (
             <Empty />
           )}
+        </>
+      )}
+
+      {nextProducts?.length > 0 && (
+        <>
+          <div className="shop-content__header">
+            <div className="shop-content__header-showing">
+              <h2>Just for you: </h2>
+            </div>
+          </div>
+          <Row gutter={[{ xs: 5, sm: 5, xl: 15, xxl: 30 }, 30]}>
+            {nextProducts.map((product, index) => (
+              <Col
+                key={index}
+                className={classNames({ "five-col": fiveColumn })}
+                {...productResponsive}
+              >
+                <Product data={product} />
+              </Col>
+            ))}
+          </Row>
         </>
       )}
     </div>

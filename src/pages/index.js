@@ -15,13 +15,8 @@ export default function Home() {
   const router = useRouter();
   const globalState = useSelector((state) => state.globalReducer);
 
-  const data = useProductData(
-    productData,
-    globalState.category,
-    router.query.q
-  );
-
   const [products, setProducts] = React.useState([]);
+  const [nextProducts, setNextProducts] = React.useState([]);
 
   const init = React.useCallback(async () => {
     const res = await window.AicactusSDK.getFeatureById(
@@ -47,13 +42,53 @@ export default function Home() {
     }
   }, []);
 
+  const initNextProducts = React.useCallback(async () => {
+    const res = await window.AicactusSDK.getFeatureById(
+      FEATURE_IDS.nextProducts,
+      "next"
+    );
+    if (res?.data?.results?.data?.length) {
+      const data = res.data.results.data;
+      setNextProducts(
+        data.map((item) => ({
+          ...item,
+          slug: slugify(item.name, {
+            replacement: "-",
+            remove: undefined,
+            lower: true,
+            strict: false,
+            locale: "vi",
+          }),
+          thumbImage: [item.cdn_link, item.cdn_link],
+          images: [item.cdn_link],
+        }))
+      );
+    }
+  }, []);
+
   React.useEffect(() => {
     let timer = setTimeout(() => {
       init();
+      initNextProducts();
     }, 500);
 
     return () => clearTimeout(timer);
   }, []);
+
+  const productsFromSearch = React.useMemo(() => {
+    return globalState.products.map((item) => ({
+      ...item,
+      slug: slugify(item.name, {
+        replacement: "-",
+        remove: undefined,
+        lower: true,
+        strict: false,
+        locale: "vi",
+      }),
+      thumbImage: [item.cdn_link, item.cdn_link],
+      images: [item.cdn_link],
+    }));
+  }, [globalState.products]);
 
   return (
     <LayoutOne title="Home">
@@ -64,8 +99,8 @@ export default function Home() {
         shopContentResponsive={{ xs: 24, lg: 20 }}
         productResponsive={{ xs: 12, sm: 8, md: 6 }}
         productPerPage={15}
-        // data={[...data]}
-        data={[...products]}
+        data={globalState.products?.length ? productsFromSearch : [...products]}
+        nextProducts={nextProducts}
       />
     </LayoutOne>
   );
