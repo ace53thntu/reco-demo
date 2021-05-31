@@ -3,6 +3,7 @@ export const GLOBAL = {
   SET_CURRENCY: "SET_CURRENCY",
   SET_CATEGORY: "SET_CATEGORY",
   SET_SEARCH: "SET_SEARCH",
+  SET_PRODUCTS: "SET_PRODUCTS",
 };
 
 export const CART = {

@@ -55,7 +55,7 @@
   &-content {
     .product-name {
       @include link($fsz: emCal(16, 15), $fw: 500, $cpt: true);
-      @include overflowText(1);
+      // @include overflowText(1);
       margin-bottom: emCal(16, 10);
     }
     .product-rate {

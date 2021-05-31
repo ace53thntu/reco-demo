@@ -19,3 +19,8 @@ export const setGlobalSearch = (keyword) => ({
   type: GLOBAL.SET_SEARCH,
   keyword,
 });
+
+export const setGlobalProducts = (products) => ({
+  type: GLOBAL.SET_PRODUCTS,
+  products,
+});

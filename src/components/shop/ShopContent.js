@@ -9,16 +9,17 @@ function ShopContent({
   data,
   productPerPage,
   productStyle,
+  nextProducts,
 }) {
   return (
     <div className="shop-content">
-      {/* <ShopContentHeader productPerPage={productPerPage} data={data} /> */}
       <ShopContentProduct
         productStyle={productStyle}
         fiveColumn={fiveColumn}
         productResponsive={productResponsive}
         data={data}
         productPerPage={productPerPage}
+        nextProducts={nextProducts}
       />
     </div>
   );
