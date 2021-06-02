@@ -10,6 +10,7 @@ const initialState = {
   keyword: "",
   products: [],
   product: {},
+  userId: "",
 };
 
 const globalReducer = (state = initialState, action) => {
@@ -51,6 +52,11 @@ const globalReducer = (state = initialState, action) => {
       return {
         ...state,
         product: action.product,
+      };
+    case GLOBAL.SET_AB_USER_ID:
+      return {
+        ...state,
+        userId: action.userId,
       };
     default:
       return state;

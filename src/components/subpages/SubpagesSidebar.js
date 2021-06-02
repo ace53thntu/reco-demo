@@ -1,17 +1,35 @@
-import React, { useState } from "react";
-import { Button, Drawer } from "antd";
+import { Button, Drawer, Input } from "antd";
 import Link from "next/link";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import ClientOnlyPortal from "../../common/ClientOnlyPortal";
+import { setGlobalABUserId } from "../../redux/actions/globalActions";
+
+const { Search } = Input;
 
 export default function SubpagesSidebar() {
+  const dispatch = useDispatch();
+  const { userId } = useSelector((state) => state.globalReducer);
+
   const [visible, setVisible] = useState(false);
+  const [searchValue, setSearchValue] = React.useState(userId);
+
   const showDrawer = () => {
     setVisible(!visible);
   };
   const onClose = () => {
     setVisible(false);
   };
+
+  const onSearch = (value) => {
+    console.log(
+      "🚀 ~ file: SubpagesSidebar.js ~ line 19 ~ onSearch ~ value",
+      value
+    );
+    dispatch(setGlobalABUserId(value));
+  };
+
   return (
     <ClientOnlyPortal selector="#subpages-sidebar">
       <Drawer
@@ -26,12 +44,22 @@ export default function SubpagesSidebar() {
         <Button onClick={showDrawer} className="subpages-sidebar-opener">
           <i className="fas fa-cog fa-spin" />
         </Button>
-        <h2>
+        {/* <h2>
           <span>4</span>
           Demo
-        </h2>
-        <p>You can easily combine various features from different demos.</p>
-        <div className="subpages-homepages-group">
+        </h2> */}
+        {/* <p>You can easily combine various features from different demos.</p> */}
+        <p>Enter your user_id for see A/B testing.</p>
+        <Search
+          placeholder="Enter user id"
+          allowClear
+          enterButton="Apply"
+          size="large"
+          onSearch={onSearch}
+          value={searchValue}
+          onChange={(event) => setSearchValue(event.target.value)}
+        />
+        {/* <div className="subpages-homepages-group">
           <Link href={process.env.PUBLIC_URL + "/"}>
             <a>
               <img
@@ -76,7 +104,7 @@ export default function SubpagesSidebar() {
               <span>Homepage 04</span>
             </a>
           </Link>
-        </div>
+        </div> */}
       </Drawer>
     </ClientOnlyPortal>
   );

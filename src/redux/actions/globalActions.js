@@ -29,3 +29,8 @@ export const setGlobalProduct = (product) => ({
   type: GLOBAL.SET_PRODUCT,
   product,
 });
+
+export const setGlobalABUserId = (userId) => ({
+  type: GLOBAL.SET_AB_USER_ID,
+  userId,
+});

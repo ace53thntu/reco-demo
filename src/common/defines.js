@@ -63,4 +63,5 @@ export const FEATURE_IDS = {
   topCanvas: "725eb6e9-a3d9-4194-a344-efb53505cdfe",
   rightCanvas: "4a60f476-0853-4a5b-848e-3373ce0ea134",
   centerCanvas: "eec3740b-c558-42e4-9743-24d2bc86d25f",
+  ABTesting: "bb8323b8-ef35-48f1-a072-c3579a1a68b8",
 };

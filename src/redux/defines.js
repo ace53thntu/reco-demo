@@ -5,6 +5,7 @@ export const GLOBAL = {
   SET_SEARCH: "SET_SEARCH",
   SET_PRODUCTS: "SET_PRODUCTS",
   SET_PRODUCT: "SET_PRODUCT",
+  SET_AB_USER_ID: "SET_AB_USER_ID",
 };
 
 export const CART = {
