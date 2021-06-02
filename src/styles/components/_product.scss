@@ -111,19 +111,10 @@
   }
   &.-style-one {
     .product-image {
-      &:hover {
-        .product-atw {
-          right: emCal(14, 10);
-        }
-        .product-qv {
-          opacity: 1;
-          visibility: visible;
-        }
-      }
       .product-atw {
         position: absolute;
         top: emCal(14, 10);
-        right: -100px;
+        right: emCal(14, 10);
         background-color: #fff;
         font-size: emCal(16, 14);
         height: emCal(14, 30);
@@ -139,8 +130,8 @@
       }
       .product-qv {
         position: absolute;
-        opacity: 0;
-        visibility: hidden;
+        opacity: 1;
+        visibility: visible;
         bottom: emCal(14, 10);
         left: 50%;
         transform: translateX(-50%);
