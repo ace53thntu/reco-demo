@@ -1,5 +1,6 @@
 import { Col, Row, Tabs } from "antd";
 import classNames from "classnames";
+import { useSelector } from "react-redux";
 import slugify from "slugify";
 
 import { FEATURE_IDS } from "../../../common/defines";
@@ -10,12 +11,16 @@ import ProductDetailReviewItem from "../elements/ProductDetailReviewItem";
 const { TabPane } = Tabs;
 
 export default function ProductDetailTabOne() {
+  const { userId } = useSelector((state) => state.globalReducer);
+
   const [nextProducts, setNextProducts] = React.useState([]);
 
-  const initNextProducts = React.useCallback(async () => {
+  const initNextProducts = React.useCallback(async (id) => {
     const res = await window.AicactusSDK.getFeatureById(
       FEATURE_IDS.nextProducts,
-      "next"
+      "next",
+      {},
+      id
     );
     if (res?.data?.results?.data?.length) {
       const data = res.data.results.data;
@@ -38,11 +43,11 @@ export default function ProductDetailTabOne() {
 
   React.useEffect(() => {
     let timer = setTimeout(() => {
-      initNextProducts();
+      initNextProducts(userId);
     }, 500);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [userId]);
 
   return (
     <div className="product-detail-tab-one shop-layout">
