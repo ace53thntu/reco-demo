@@ -18,10 +18,12 @@ export default function Home() {
   const [products, setProducts] = React.useState([]);
   const [nextProducts, setNextProducts] = React.useState([]);
 
-  const init = React.useCallback(async () => {
+  const init = React.useCallback(async (id) => {
     const res = await window.AicactusSDK.getFeatureById(
       FEATURE_IDS.topProducts,
-      "top"
+      "top",
+      {},
+      id
     );
     if (res?.data?.results?.data?.length) {
       const data = res.data.results.data;
@@ -42,10 +44,12 @@ export default function Home() {
     }
   }, []);
 
-  const initNextProducts = React.useCallback(async () => {
+  const initNextProducts = React.useCallback(async (id) => {
     const res = await window.AicactusSDK.getFeatureById(
       FEATURE_IDS.nextProducts,
-      "next"
+      "next",
+      {},
+      id
     );
     if (res?.data?.results?.data?.length) {
       const data = res.data.results.data;
@@ -68,12 +72,12 @@ export default function Home() {
 
   React.useEffect(() => {
     let timer = setTimeout(() => {
-      init();
-      initNextProducts();
+      init(globalState.userId);
+      initNextProducts(globalState.userId);
     }, 500);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [globalState.userId]);
 
   const productsFromSearch = React.useMemo(() => {
     return globalState.products.map((item) => ({

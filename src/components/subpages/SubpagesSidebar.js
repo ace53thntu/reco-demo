@@ -23,11 +23,8 @@ export default function SubpagesSidebar() {
   };
 
   const onSearch = (value) => {
-    console.log(
-      "🚀 ~ file: SubpagesSidebar.js ~ line 19 ~ onSearch ~ value",
-      value
-    );
     dispatch(setGlobalABUserId(value));
+    window.AicactusSDK.callMethodsFromContainer(value);
   };
 
   return (

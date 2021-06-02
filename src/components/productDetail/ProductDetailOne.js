@@ -1,5 +1,6 @@
 import { Breadcrumb, Col, Row } from "antd";
 import React from "react";
+import { useSelector } from "react-redux";
 
 import { FEATURE_IDS } from "../../common/defines";
 import Container from "../other/Container";
@@ -9,8 +10,9 @@ import ProductDetailTabOne from "./productDetailTab/ProductDetailTabOne";
 
 function ProductDetailLayoutOne({ data }) {
   const [adsBanners, setAdsBanners] = React.useState([]);
+  const { userId } = useSelector((state) => state.globalReducer);
 
-  const init = React.useCallback(async () => {
+  const init = React.useCallback(async (id) => {
     const res = await window.AicactusSDK.getFeatureById(
       FEATURE_IDS.rightCanvas,
       "canvas",
@@ -18,7 +20,8 @@ function ProductDetailLayoutOne({ data }) {
         width: 450,
         height: 170,
         background_color: "#FFFFFF",
-      }
+      },
+      id
     );
     if (res?.data?.results?.data?.length) {
       setAdsBanners(res.data.results.data);
@@ -27,11 +30,11 @@ function ProductDetailLayoutOne({ data }) {
 
   React.useEffect(() => {
     let timer = setTimeout(() => {
-      init();
+      init(userId);
     }, 500);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [userId]);
 
   return (
     <div className="product-detail-one">
@@ -43,13 +46,13 @@ function ProductDetailLayoutOne({ data }) {
             <Breadcrumb.Item>{data.name}</Breadcrumb.Item>
           </Breadcrumb>
           <Row gutter={70}>
-            <Col span={24} md={12}>
+            <Col span={24} sm={10}>
               <ProductDetailImageOne imageData={data.thumbImage} />
             </Col>
-            <Col span={24} md={10}>
+            <Col span={24} sm={8}>
               <ProductDetailContentOne data={data} quantityControllerNoRound />
             </Col>
-            <Col span={24} md={2}>
+            <Col span={24} sm={6}>
               {adsBanners.map((item, index) => (
                 <a
                   className="banner-item"

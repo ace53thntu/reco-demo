@@ -29,7 +29,7 @@ function ProductDetailContentOne({
 
   const [adsBanners, setAdsBanners] = React.useState([]);
 
-  const init = React.useCallback(async () => {
+  const init = React.useCallback(async (id) => {
     const res = await window.AicactusSDK.getFeatureById(
       FEATURE_IDS.centerCanvas,
       "canvas",
@@ -37,7 +37,8 @@ function ProductDetailContentOne({
         width: 450,
         height: 170,
         background_color: "#FFFFFF",
-      }
+      },
+      id
     );
     if (res?.data?.results?.data?.length) {
       setAdsBanners(res.data.results.data);
@@ -46,11 +47,11 @@ function ProductDetailContentOne({
 
   React.useEffect(() => {
     let timer = setTimeout(() => {
-      init();
+      init(globalState.userId);
     }, 500);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [globalState.userId]);
 
   const onAddProductToCart = (data) => {
     if (avaiableQuantity === 0) {

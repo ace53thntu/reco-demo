@@ -40,7 +40,7 @@ export default function Banners({ containerType }) {
               key={item?.id ?? index}
               className="gutter-row"
               span={24}
-              sm={8}
+              sm={24}
             >
               <a className="banner-item" href={item.href} target="_blank">
                 <img src={item.link} alt="banner" />
