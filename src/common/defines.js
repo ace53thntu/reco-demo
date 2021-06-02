@@ -60,4 +60,7 @@ export const FEATURE_IDS = {
   keywords: "806840f9-c271-498c-b606-60592bb047be",
   extensions: "75346e78-d25e-4e09-b474-245ef752ed3a",
   nextProducts: "7f8e937a-3f5a-45fa-9ba5-5840f3cd1b13",
+  topCanvas: "725eb6e9-a3d9-4194-a344-efb53505cdfe",
+  rightCanvas: "4a60f476-0853-4a5b-848e-3373ce0ea134",
+  centerCanvas: "eec3740b-c558-42e4-9743-24d2bc86d25f",
 };

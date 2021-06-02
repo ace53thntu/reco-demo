@@ -1,4 +1,5 @@
 import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 
 import { getProductsBySlug } from "../../common/shopUtils";
 import { capitalizeFirstLetter } from "../../common/utils";
@@ -9,15 +10,15 @@ import productData from "../../data/product.json";
 export default function pid() {
   const router = useRouter();
   const { slug } = router.query;
-  console.log("🚀 ~ file: [slug].js ~ line 12 ~ pid ~ slug", slug);
-  const foundProduct = getProductsBySlug(productData, slug);
+
+  const { product } = useSelector((state) => state.globalReducer);
 
   return (
     <LayoutOne
-      title={foundProduct && capitalizeFirstLetter(foundProduct.name)}
+      title={product?.name && capitalizeFirstLetter(product.name)}
       clearSpaceTop
     >
-      {/* {foundProduct && <ProductDetailOne data={foundProduct} />} */}
+      {product?.name && <ProductDetailOne data={product} />}
     </LayoutOne>
   );
 }

@@ -10,6 +10,7 @@ import {
 } from "../../common/shopUtils";
 import { formatCurrency } from "../../common/utils";
 import { addToCart } from "../../redux/actions/cartActions";
+import { setGlobalProduct } from "../../redux/actions/globalActions";
 import {
   addToWishlist,
   removeFromWishlist,
@@ -77,6 +78,12 @@ function Product({ data, productStyle }) {
   const handleImageLoaded = () => {
     setImageLoading(false);
   };
+
+  const handleClickProduct = () => {
+    console.log("---handleClickProduct: ", data);
+    dispatch(setGlobalProduct(data));
+  };
+
   return data ? (
     <>
       <div className={`product ${renderStyleClass()}`}>
@@ -85,7 +92,10 @@ function Product({ data, productStyle }) {
             href={process.env.PUBLIC_URL + `/product/[slug]`}
             as={process.env.PUBLIC_URL + `/product/${data.slug}`}
           >
-            <a className={classNames({ loading: imageLoading })}>
+            <a
+              className={classNames({ loading: imageLoading })}
+              onClick={handleClickProduct}
+            >
               {data.thumbImage &&
                 data.thumbImage.map((item, index) => (
                   <img

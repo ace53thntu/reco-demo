@@ -9,6 +9,7 @@ const initialState = {
   category: "clothing",
   keyword: "",
   products: [],
+  product: {},
 };
 
 const globalReducer = (state = initialState, action) => {
@@ -45,6 +46,11 @@ const globalReducer = (state = initialState, action) => {
       return {
         ...state,
         products: action.products,
+      };
+    case GLOBAL.SET_PRODUCT:
+      return {
+        ...state,
+        product: action.product,
       };
     default:
       return state;

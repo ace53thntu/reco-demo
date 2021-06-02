@@ -1,15 +1,78 @@
-import { Tabs } from "antd";
+import { Col, Row, Tabs } from "antd";
+import classNames from "classnames";
+import slugify from "slugify";
 
+import { FEATURE_IDS } from "../../../common/defines";
 import Container from "../../other/Container";
+import Product from "../../product/Product";
 import ProductDetailReviewItem from "../elements/ProductDetailReviewItem";
 
 const { TabPane } = Tabs;
 
 export default function ProductDetailTabOne() {
+  const [nextProducts, setNextProducts] = React.useState([]);
+
+  const initNextProducts = React.useCallback(async () => {
+    const res = await window.AicactusSDK.getFeatureById(
+      FEATURE_IDS.nextProducts,
+      "next"
+    );
+    if (res?.data?.results?.data?.length) {
+      const data = res.data.results.data;
+      setNextProducts(
+        data.map((item) => ({
+          ...item,
+          slug: slugify(item.name, {
+            replacement: "-",
+            remove: undefined,
+            lower: true,
+            strict: false,
+            locale: "vi",
+          }),
+          thumbImage: [item.cdn_link, item.cdn_link],
+          images: [item.cdn_link],
+        }))
+      );
+    }
+  }, []);
+
+  React.useEffect(() => {
+    let timer = setTimeout(() => {
+      initNextProducts();
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <div className="product-detail-tab-one">
+    <div className="product-detail-tab-one shop-layout">
       <Container>
-        <Tabs defaultActiveKey="1" centered>
+        <div className="shop-content__product">
+          {nextProducts?.length > 0 && (
+            <>
+              <div className="shop-content__header">
+                <div className="shop-content__header-showing">
+                  <h2>Just for you: </h2>
+                </div>
+              </div>
+              <Row gutter={[{ xs: 5, sm: 5, xl: 15, xxl: 30 }, 30]}>
+                {nextProducts.map((product, index) => (
+                  <Col
+                    key={index}
+                    className={classNames({ "five-col": true })}
+                    xs={12}
+                    sm={8}
+                    md={6}
+                  >
+                    <Product data={product} />
+                  </Col>
+                ))}
+              </Row>
+            </>
+          )}
+        </div>
+
+        {/* <Tabs defaultActiveKey="1" centered>
           <TabPane tab="Description" key="1">
             <div className="product-detail-tab-item -description">
               <p className="tab-des--bold">
@@ -88,7 +151,7 @@ export default function ProductDetailTabOne() {
               </table>
             </div>
           </TabPane>
-        </Tabs>
+        </Tabs> */}
       </Container>
     </div>
   );

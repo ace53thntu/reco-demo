@@ -4,6 +4,7 @@ export const GLOBAL = {
   SET_CATEGORY: "SET_CATEGORY",
   SET_SEARCH: "SET_SEARCH",
   SET_PRODUCTS: "SET_PRODUCTS",
+  SET_PRODUCT: "SET_PRODUCT",
 };
 
 export const CART = {
