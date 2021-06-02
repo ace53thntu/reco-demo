@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import { Rate, Button, Radio, Progress, message } from "antd";
-import Countdown, { zeroPad } from "react-countdown";
-import { useSelector, useDispatch } from "react-redux";
+import { Button, Progress, Radio, Rate, message } from "antd";
 import classNames from "classnames";
+import React, { useState } from "react";
+import Countdown, { zeroPad } from "react-countdown";
+import { useDispatch, useSelector } from "react-redux";
 
+import { FEATURE_IDS } from "../../../common/defines";
+import { checkAvaiableQuantityToAdd } from "../../../common/shopUtils";
 import { formatCurrency } from "../../../common/utils";
 import { addToCart } from "../../../redux/actions/cartActions";
-import { checkAvaiableQuantityToAdd } from "../../../common/shopUtils";
 import QuantitySelector from "../../controls/QuantitySelector";
 import ProductGuaranteed from "../elements/ProductGuaranteed";
 
@@ -25,6 +26,32 @@ function ProductDetailContentOne({
   const cartState = useSelector((state) => state.cartReducer);
   const avaiableQuantity = checkAvaiableQuantityToAdd(cartState, data);
   const { currency, locales } = globalState.currency;
+
+  const [adsBanners, setAdsBanners] = React.useState([]);
+
+  const init = React.useCallback(async () => {
+    const res = await window.AicactusSDK.getFeatureById(
+      FEATURE_IDS.centerCanvas,
+      "canvas",
+      {
+        width: 450,
+        height: 170,
+        background_color: "#FFFFFF",
+      }
+    );
+    if (res?.data?.results?.data?.length) {
+      setAdsBanners(res.data.results.data);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    let timer = setTimeout(() => {
+      init();
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const onAddProductToCart = (data) => {
     if (avaiableQuantity === 0) {
       return;
@@ -42,13 +69,27 @@ function ProductDetailContentOne({
   return (
     <div className="product-detail-content-one">
       <h3>{data.name}</h3>
-      <div className="product-detail-content-one-rate">
+
+      <div className="product-detail-content-one-description">
+        {adsBanners.map((item, index) => (
+          <a
+            className="banner-item"
+            href={item.href}
+            target="_blank"
+            key={item.id}
+          >
+            <img src={item.link} alt="banner" />
+          </a>
+        ))}
+      </div>
+
+      {/* <div className="product-detail-content-one-rate">
         <Rate disabled defaultValue={data.rate} />
         <span className="product-detail-content-one-review-count">
           - 5 Reviews
         </span>
-      </div>
-      <div className="product-detail-content-one-price">
+      </div> */}
+      {/* <div className="product-detail-content-one-price">
         <h5>
           {data.discount
             ? formatCurrency(data.price - data.discount, locales, currency)
@@ -57,13 +98,13 @@ function ProductDetailContentOne({
         {data.discount && (
           <span>{formatCurrency(data.price, locales, currency)}</span>
         )}
-      </div>
-      <p className="product-detail-content-one-description">
+      </div> */}
+      {/* <p className="product-detail-content-one-description">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi illo
         possimus quae tenetur. Porro aliquam quaerat dolorum pariatur molestias
         commodi ipsa
-      </p>
-      {showCountdown && (
+      </p> */}
+      {/* {showCountdown && (
         <>
           <div className="product-detail-content-one-countdown">
             <h3>Hurry Up ! Sales end in :</h3>
@@ -110,8 +151,8 @@ function ProductDetailContentOne({
             </div>
           </div>
         </>
-      )}
-      <div className="product-detail-content-one-variation">
+      )} */}
+      {/* <div className="product-detail-content-one-variation">
         {data.size && (
           <div className="variation-item -size">
             <>
@@ -143,8 +184,8 @@ function ProductDetailContentOne({
             </>
           </div>
         )}
-      </div>
-      <div className="product-detail-content-one-actions">
+      </div> */}
+      {/* <div className="product-detail-content-one-actions">
         <QuantitySelector
           noRound={quantityControllerNoRound}
           defaultValue={1}
@@ -163,8 +204,8 @@ function ProductDetailContentOne({
         >
           Add to cart
         </Button>
-      </div>
-      {!hideGuaranteed && <ProductGuaranteed />}
+      </div> */}
+      {/* {!hideGuaranteed && <ProductGuaranteed />} */}
     </div>
   );
 }

@@ -24,3 +24,8 @@ export const setGlobalProducts = (products) => ({
   type: GLOBAL.SET_PRODUCTS,
   products,
 });
+
+export const setGlobalProduct = (product) => ({
+  type: GLOBAL.SET_PRODUCT,
+  product,
+});

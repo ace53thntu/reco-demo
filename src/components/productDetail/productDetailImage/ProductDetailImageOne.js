@@ -1,7 +1,7 @@
-import Slider from "react-slick";
+import { Col, Row } from "antd";
 import { useState } from "react";
-import { Row, Col } from "antd";
 import React from "react";
+import Slider from "react-slick";
 
 import ZoomImage from "../../other/ZoomImage";
 
@@ -11,7 +11,7 @@ function ProductDetailImageOne({ imageData }) {
   };
   const slider2Settings = {
     arrows: false,
-    slidesToShow: 3,
+    slidesToShow: imageData?.length > 3 ? 3 : 2,
     centerMode: true,
     centerPadding: "0px",
     focusOnSelect: true,
@@ -56,21 +56,19 @@ function ProductDetailImageOne({ imageData }) {
             xl={4}
           >
             <div className="product-detail-image-one-small">
-              <Slider
-                asNavFor={nav1}
-                ref={(c) => setNav2(c)}
-                {...slider2Settings}
-              >
-                {imageData &&
-                  imageData.map((img, index) => (
+              {imageData && (
+                <Slider
+                  asNavFor={nav1}
+                  ref={(c) => setNav2(c)}
+                  {...slider2Settings}
+                >
+                  {[...imageData].map((img, index) => (
                     <div key={index} className="slider-item">
-                      <img
-                        src={process.env.PUBLIC_URL + img}
-                        alt="Product image"
-                      />
+                      <img src={img} alt="Product image" />
                     </div>
                   ))}
-              </Slider>
+                </Slider>
+              )}
             </div>
           </Col>
           <Col
@@ -92,7 +90,7 @@ function ProductDetailImageOne({ imageData }) {
                     <div key={index} className="slider-item">
                       <ZoomImage
                         disableOnMobile
-                        src={process.env.PUBLIC_URL + img}
+                        src={img}
                         alt="Product image"
                       />
                     </div>
