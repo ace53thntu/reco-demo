@@ -32,7 +32,7 @@ function LayoutOne({
       </div>
       <Footer containerType={containerType} />
       <BackTop />
-      {/* <SubpagesSidebar /> */}
+      <SubpagesSidebar />
     </>
   );
 }

@@ -15,7 +15,7 @@ export default function pid() {
 
   return (
     <LayoutOne
-      title={product?.name && capitalizeFirstLetter(product.name)}
+      title={product?.name ? capitalizeFirstLetter(product.name) : ""}
       clearSpaceTop
     >
       {product?.name && <ProductDetailOne data={product} />}

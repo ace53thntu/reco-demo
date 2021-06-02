@@ -26,6 +26,14 @@
       background-color: setColor(blue);
     }
   }
+  &.-style-one {
+    .menu {
+      background-color: setColor(red);
+    }
+    .top-nav {
+      background-color: setColor(red);
+    }
+  }
 }
 
 .header-scroll-wrapper {
