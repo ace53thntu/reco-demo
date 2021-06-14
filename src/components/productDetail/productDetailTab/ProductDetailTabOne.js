@@ -11,16 +11,19 @@ import ProductDetailReviewItem from "../elements/ProductDetailReviewItem";
 const { TabPane } = Tabs;
 
 export default function ProductDetailTabOne() {
-  const { userId } = useSelector((state) => state.globalReducer);
-
+  const { userId, product } = useSelector((state) => state.globalReducer);
   const [nextProducts, setNextProducts] = React.useState([]);
 
-  const initNextProducts = React.useCallback(async (id) => {
+  const initNextProducts = React.useCallback(async (userId) => {
     const res = await window.AicactusSDK.getFeatureById(
       FEATURE_IDS.nextProducts,
       "next",
       {},
-      id
+      userId,
+      {
+        productId: product?.id,
+        url: product?.cdn_link,
+      }
     );
     if (res?.data?.results?.data?.length) {
       const data = res.data.results.data;
@@ -34,8 +37,10 @@ export default function ProductDetailTabOne() {
             strict: false,
             locale: "vi",
           }),
-          thumbImage: [item.cdn_link, item.cdn_link],
-          images: [item.cdn_link],
+          thumbImage: item.cdn_link?.length
+            ? [item.cdn_link, item.cdn_link]
+            : null,
+          images: item.cdn_link?.length ? [item.cdn_link] : null,
         }))
       );
     }
