@@ -14,7 +14,7 @@ export default function ProductDetailTabOne() {
   const { userId, product } = useSelector((state) => state.globalReducer);
   const [nextProducts, setNextProducts] = React.useState([]);
 
-  const initNextProducts = React.useCallback(async (userId) => {
+  const initNextProducts = React.useCallback(async (userId, product) => {
     const res = await window.AicactusSDK.getFeatureById(
       FEATURE_IDS.nextProducts,
       "next",
@@ -48,11 +48,11 @@ export default function ProductDetailTabOne() {
 
   React.useEffect(() => {
     let timer = setTimeout(() => {
-      initNextProducts(userId);
+      initNextProducts(userId, product);
     }, 500);
 
     return () => clearTimeout(timer);
-  }, [userId]);
+  }, [userId, product]);
 
   return (
     <div className="product-detail-tab-one shop-layout">

@@ -51,7 +51,7 @@ function ProductDetailContentOne({
     }, 500);
 
     return () => clearTimeout(timer);
-  }, [globalState.userId]);
+  }, [globalState.userId, data]);
 
   const onAddProductToCart = (data) => {
     if (avaiableQuantity === 0) {
@@ -61,12 +61,15 @@ function ProductDetailContentOne({
     onAddedToCart && onAddedToCart();
     message.success("Product added to cart successfully");
   };
+
   const onChooseSize = (e) => {
     setCurrentSize(e.target.value);
   };
+
   const onChooseColor = (e) => {
     setCurrentColor(e.target.value);
   };
+
   return (
     <div className="product-detail-content-one">
       <h3>{data.name}</h3>
