@@ -34,7 +34,7 @@ function ProductDetailLayoutOne({ data }) {
     }, 500);
 
     return () => clearTimeout(timer);
-  }, [userId]);
+  }, [userId, data]);
 
   return (
     <div className="product-detail-one">
