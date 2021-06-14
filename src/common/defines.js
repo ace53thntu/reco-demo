@@ -56,12 +56,16 @@ export const SHOP = {
 };
 
 export const FEATURE_IDS = {
-  topProducts: "4ba39ba1-5624-4f39-a6a6-c123249d7f0f",
-  keywords: "806840f9-c271-498c-b606-60592bb047be",
-  extensions: "75346e78-d25e-4e09-b474-245ef752ed3a",
-  nextProducts: "7f8e937a-3f5a-45fa-9ba5-5840f3cd1b13",
-  topCanvas: "725eb6e9-a3d9-4194-a344-efb53505cdfe",
-  rightCanvas: "4a60f476-0853-4a5b-848e-3373ce0ea134",
-  centerCanvas: "eec3740b-c558-42e4-9743-24d2bc86d25f",
-  ABTesting: "bb8323b8-ef35-48f1-a072-c3579a1a68b8",
+  topProducts: "5478bb7f-1041-4b07-a507-cd9f71377401",
+  nextProducts: "b7b3e102-d85a-4007-afb8-4d36fac32992",
+
+  keywords: "0fc73048-f9ef-4ab6-abac-1616243d48f2",
+
+  extensions: "279778c0-d81c-48e3-adbd-30e238731eb6",
+
+  topCanvas: "24eda307-e72a-49cd-9fa4-1d1e2d325452",
+  rightCanvas: "9b17efb4-ee06-4403-ac8c-db3b6217c7b0",
+  centerCanvas: "42637ce5-0235-4688-8b16-89c5fbc96220",
+
+  ABTesting: "ca5dcaf0-dee2-443d-bc7d-f2565c468027",
 };

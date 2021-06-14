@@ -37,8 +37,10 @@ export default function Home() {
             strict: false,
             locale: "vi",
           }),
-          thumbImage: [item.cdn_link, item.cdn_link],
-          images: [item.cdn_link],
+          thumbImage: item.cdn_link?.length
+            ? [item.cdn_link, item.cdn_link]
+            : null,
+          images: item.cdn_link?.length ? [item.cdn_link] : null,
         }))
       );
     }
@@ -63,8 +65,10 @@ export default function Home() {
             strict: false,
             locale: "vi",
           }),
-          thumbImage: [item.cdn_link, item.cdn_link],
-          images: [item.cdn_link],
+          thumbImage: item.cdn_link?.length
+            ? [item.cdn_link, item.cdn_link]
+            : null,
+          images: item.cdn_link?.length ? [item.cdn_link] : null,
         }))
       );
     }
@@ -80,18 +84,22 @@ export default function Home() {
   }, [globalState.userId]);
 
   const productsFromSearch = React.useMemo(() => {
-    return globalState.products.map((item) => ({
-      ...item,
-      slug: slugify(item.name, {
-        replacement: "-",
-        remove: undefined,
-        lower: true,
-        strict: false,
-        locale: "vi",
-      }),
-      thumbImage: [item.cdn_link, item.cdn_link],
-      images: [item.cdn_link],
-    }));
+    return globalState.products.map((item) => {
+      return {
+        ...item,
+        slug: slugify(item.name, {
+          replacement: "-",
+          remove: undefined,
+          lower: true,
+          strict: false,
+          locale: "vi",
+        }),
+        thumbImage: item.cdn_link?.length
+          ? [item.cdn_link, item.cdn_link]
+          : null,
+        images: item.cdn_link?.length ? [item.cdn_link] : null,
+      };
+    });
   }, [globalState.products]);
 
   return (

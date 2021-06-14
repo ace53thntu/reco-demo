@@ -20,16 +20,18 @@ import ShopQuickView from "../shop/ShopQuickView";
 function Product({ data, productStyle }) {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
-  const [imageLoading, setImageLoading] = useState(true);
+  const [imageLoading, setImageLoading] = useState(!!data.thumbImage);
   const globalState = useSelector((state) => state.globalReducer);
   const cartState = useSelector((state) => state.cartReducer);
   const wishlistState = useSelector((state) => state.wishlistReducer);
   const productInWishlist = checkProductInWishlist(wishlistState, data.id);
   const avaiableQuantity = checkAvaiableQuantityToAdd(cartState, data);
   const { currency, locales } = globalState.currency;
+
   useEffect(() => {
-    setImageLoading(true);
+    setImageLoading(!!data.thumbImage);
   }, [globalState.category]);
+
   const renderProductType = () => {
     if (data.discount && !data.isNew) {
       return <p className="product-type -sale">Sale</p>;
@@ -80,8 +82,11 @@ function Product({ data, productStyle }) {
   };
 
   const handleClickProduct = () => {
-    console.log("---handleClickProduct: ", data);
     dispatch(setGlobalProduct(data));
+  };
+
+  const _renderAvatar = (product) => {
+    return <span className="avatar">{[...product.slug][0]}</span>;
   };
 
   return data ? (
@@ -96,15 +101,16 @@ function Product({ data, productStyle }) {
               className={classNames({ loading: imageLoading })}
               onClick={handleClickProduct}
             >
-              {data.thumbImage &&
-                data.thumbImage.map((item, index) => (
-                  <img
-                    onLoad={handleImageLoaded}
-                    key={index}
-                    src={item}
-                    alt="Product image"
-                  />
-                ))}
+              {data.thumbImage
+                ? data.thumbImage.map((item, index) => (
+                    <img
+                      onLoad={handleImageLoaded}
+                      key={index}
+                      src={item}
+                      alt="Product image"
+                    />
+                  ))
+                : _renderAvatar(data)}
             </a>
           </Link>
           {imageLoading && (
