@@ -18,6 +18,7 @@ function ProductDetailContentOne({
   quantityControllerNoRound,
   showCountdown,
 }) {
+  console.log("🚀 ~ file: ProductDetailContentOne.js ~ line 21 ~ data", data);
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
   const [currentColor, setCurrentColor] = useState("none");
@@ -82,7 +83,14 @@ function ProductDetailContentOne({
             target="_blank"
             key={item.id}
           >
-            <img src={item.link} alt="banner" />
+            <img
+              src={item.link}
+              alt="banner"
+              style={{
+                width: "100%",
+                height: "auto",
+              }}
+            />
           </a>
         ))}
       </div>
@@ -93,21 +101,24 @@ function ProductDetailContentOne({
           - 5 Reviews
         </span>
       </div> */}
-      {/* <div className="product-detail-content-one-price">
-        <h5>
+      <div className="product-detail-content-one-price">
+        {data?.metadata &&
+          Object.keys(data.metadata).map((key, index) => {
+            return <span key={index}>{data.metadata?.[key]}</span>;
+          })}
+
+        {/* <h5>
           {data.discount
             ? formatCurrency(data.price - data.discount, locales, currency)
             : formatCurrency(data.price, locales, currency)}
-        </h5>
-        {data.discount && (
+        </h5> */}
+        {/* {data.discount && (
           <span>{formatCurrency(data.price, locales, currency)}</span>
-        )}
-      </div> */}
-      {/* <p className="product-detail-content-one-description">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi illo
-        possimus quae tenetur. Porro aliquam quaerat dolorum pariatur molestias
-        commodi ipsa
-      </p> */}
+        )} */}
+      </div>
+      <p className="product-detail-content-one-description">
+        {data?.description}
+      </p>
       {/* {showCountdown && (
         <>
           <div className="product-detail-content-one-countdown">

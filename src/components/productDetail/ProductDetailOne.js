@@ -60,7 +60,14 @@ function ProductDetailLayoutOne({ data }) {
                   target="_blank"
                   key={item.id}
                 >
-                  <img src={item.link} alt="banner" />
+                  <img
+                    src={item.link}
+                    alt="banner"
+                    style={{
+                      width: "100%",
+                      height: "auto",
+                    }}
+                  />
                 </a>
               ))}
             </Col>
