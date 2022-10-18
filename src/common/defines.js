@@ -56,17 +56,22 @@ export const SHOP = {
 };
 
 export const FEATURE_IDS = {
-  topProducts: "5478bb7f-1041-4b07-a507-cd9f71377401",
-  nextProducts: "b7b3e102-d85a-4007-afb8-4d36fac32992",
+  // topProducts: "5478bb7f-1041-4b07-a507-cd9f71377401",
+  topProducts: "ba513f76-f80e-4c7b-8ced-bc3a367c207e",
+  // nextProducts: "b7b3e102-d85a-4007-afb8-4d36fac32992",
+  nextProducts: "907d61ae-b00e-4929-b367-3faede410c7a",
 
   // keywords: "0fc73048-f9ef-4ab6-abac-1616243d48f2",
   keywords: "85f752b5-f0d3-4663-a470-4130b277add0",
 
   extensions: "279778c0-d81c-48e3-adbd-30e238731eb6",
 
-  topCanvas: "24eda307-e72a-49cd-9fa4-1d1e2d325452",
-  rightCanvas: "9b17efb4-ee06-4403-ac8c-db3b6217c7b0",
-  centerCanvas: "42637ce5-0235-4688-8b16-89c5fbc96220",
+  // topCanvas: "24eda307-e72a-49cd-9fa4-1d1e2d325452",
+  // rightCanvas: "9b17efb4-ee06-4403-ac8c-db3b6217c7b0",
+  // centerCanvas: "42637ce5-0235-4688-8b16-89c5fbc96220",
+  topCanvas: "46d0be42-09fa-4ba6-841e-72496eeeef22",
+  rightCanvas: "46d0be42-09fa-4ba6-841e-72496eeeef22",
+  centerCanvas: "46d0be42-09fa-4ba6-841e-72496eeeef22",
 
-  ABTesting: "ca5dcaf0-dee2-443d-bc7d-f2565c468027",
+  ABTesting: "22044679-3a29-4d51-b943-9d69e296f5a5",
 };
