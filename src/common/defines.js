@@ -59,7 +59,8 @@ export const FEATURE_IDS = {
   topProducts: "5478bb7f-1041-4b07-a507-cd9f71377401",
   nextProducts: "b7b3e102-d85a-4007-afb8-4d36fac32992",
 
-  keywords: "0fc73048-f9ef-4ab6-abac-1616243d48f2",
+  // keywords: "0fc73048-f9ef-4ab6-abac-1616243d48f2",
+  keywords: "85f752b5-f0d3-4663-a470-4130b277add0",
 
   extensions: "279778c0-d81c-48e3-adbd-30e238731eb6",
 
